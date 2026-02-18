@@ -1,0 +1,36 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background: #777;
+    color: white;
+}
+
+#gameContainer {
+    position: relative;
+    width: 800px;
+    margin: auto;
+}
+
+canvas {
+    background: #ccc;
+    display: block;
+    border: 3px solid #222;
+}
+
+#restartBtn {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px 25px;
+    font-size: 20px;
+    background: #111;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: none;
+}
+
+#restartBtn:hover {
+    background: #333;
+}

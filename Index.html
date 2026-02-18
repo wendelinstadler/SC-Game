@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shooter Spiel</title>
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
+<h1>Shooter Game</h1>
 
+<p>
+    Score: <span id="score">0</span> |
+    Highscore: <span id="highscore">0</span> |
+    Misses: <span id="misses">0</span>/5
+</p>
+
+<div id="gameContainer">
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <button id="restartBtn">Neustarten</button>
+</div>
+
+<script src="JS/Game.js"></script>
 </body>
 </html>
