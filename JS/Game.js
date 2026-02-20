@@ -1,3 +1,4 @@
+import Storage from "./Storage.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -22,29 +23,11 @@ let mouseY = 0;
 const scopeRadius = 130;
 const zoomFactor = 2.5;
 
-// Highscore Funktionen
-
-function saveHighscore(newScore) {
-    let stored = localStorage.getItem("highscore");
-
-    if (!stored || newScore > parseInt(stored)) {
-        localStorage.setItem("highscore", newScore);
-    }
-}
-
-function loadHighscore() {
-    let stored = localStorage.getItem("highscore");
-    return stored ? parseInt(stored) : 0;
-}
-
 // Highscore beim Start laden
-highscore = loadHighscore();
+highscore = Storage.loadHighscore();
 highscoreDisplay.textContent = highscore;
 
-
-
-// Target Klasse
-
+// Target Klasse bleibt unverändert
 class Target {
     constructor(x, y, size, speedX, speedY) {
         this.x = x;
@@ -71,9 +54,7 @@ class Target {
     }
 }
 
-
 // Spawn Targets
-
 function spawnTarget() {
     if (gameOver) return;
 
@@ -85,7 +66,6 @@ function spawnTarget() {
 
     targets.push(new Target(x, y, size, speedX, speedY));
 }
-
 
 // Maus Events
 canvas.addEventListener("mousemove", (e) => {
@@ -117,7 +97,7 @@ canvas.addEventListener("click", () => {
             if (score > highscore) {
                 highscore = score;
                 highscoreDisplay.textContent = highscore;
-                saveHighscore(highscore);
+                Storage.saveHighscore(highscore);
             }
         }
     }
@@ -137,9 +117,7 @@ canvas.addEventListener("click", () => {
     }
 });
 
-
 // Restart
-
 function restartGame() {
     score = 0;
     misses = 0;
@@ -156,9 +134,7 @@ function restartGame() {
 
 restartBtn.addEventListener("click", restartGame);
 
-
-// Drawing
-
+// Zeichnen & Game Loop (unverändert)
 function drawWorld() {
     targets.forEach(t => {
         const dx = (t.x + t.size / 2) - mouseX;
@@ -172,13 +148,10 @@ function drawWorld() {
 }
 
 function drawScope() {
-
     ctx.save();
-
     ctx.beginPath();
     ctx.arc(mouseX, mouseY, scopeRadius, 0, Math.PI * 2);
     ctx.clip();
-
     ctx.translate(mouseX, mouseY);
     ctx.scale(zoomFactor, zoomFactor);
     ctx.translate(-mouseX, -mouseY);
@@ -230,9 +203,6 @@ function drawCrosshair() {
     ctx.stroke();
 }
 
-
-// Update & Draw Loop
-
 function update() {
     if (gameOver) return;
     targets.forEach(t => t.update());
@@ -240,7 +210,6 @@ function update() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     drawWorld();
 
     ctx.fillStyle = "rgba(0,0,0,0.5)";
