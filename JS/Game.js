@@ -1,3 +1,4 @@
+
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -21,9 +22,8 @@ let mouseY = 0;
 const scopeRadius = 130;
 const zoomFactor = 2.5;
 
-// =========================
 // Highscore Funktionen
-// =========================
+
 function saveHighscore(newScore) {
     let stored = localStorage.getItem("highscore");
 
@@ -41,9 +41,10 @@ function loadHighscore() {
 highscore = loadHighscore();
 highscoreDisplay.textContent = highscore;
 
-// =========================
+
+
 // Target Klasse
-// =========================
+
 class Target {
     constructor(x, y, size, speedX, speedY) {
         this.x = x;
@@ -70,9 +71,9 @@ class Target {
     }
 }
 
-// =========================
+
 // Spawn Targets
-// =========================
+
 function spawnTarget() {
     if (gameOver) return;
 
@@ -85,9 +86,8 @@ function spawnTarget() {
     targets.push(new Target(x, y, size, speedX, speedY));
 }
 
-// =========================
+
 // Maus Events
-// =========================
 canvas.addEventListener("mousemove", (e) => {
     const rect = canvas.getBoundingClientRect();
     mouseX = e.clientX - rect.left;
@@ -137,9 +137,9 @@ canvas.addEventListener("click", () => {
     }
 });
 
-// =========================
+
 // Restart
-// =========================
+
 function restartGame() {
     score = 0;
     misses = 0;
@@ -156,9 +156,9 @@ function restartGame() {
 
 restartBtn.addEventListener("click", restartGame);
 
-// =========================
+
 // Drawing
-// =========================
+
 function drawWorld() {
     targets.forEach(t => {
         const dx = (t.x + t.size / 2) - mouseX;
@@ -230,9 +230,9 @@ function drawCrosshair() {
     ctx.stroke();
 }
 
-// =========================
+
 // Update & Draw Loop
-// =========================
+
 function update() {
     if (gameOver) return;
     targets.forEach(t => t.update());
